@@ -1,0 +1,6 @@
+/lambda/
+/scripts
+/config
+node_modules
+/dist
+dist
