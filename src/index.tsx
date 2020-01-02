@@ -1,6 +1,6 @@
-import * as utils from './utils'
-import { Form } from 'antd'
-import { Input, InputNumber } from '../components'
+import * as utils from './utils';
+import { Form } from 'antd';
+import * as MyForm from '../MyAntd';
 
-
-export { utils, Form, Input, InputNumber }
+export default MyForm;
+export { MyForm, utils, Form };
