@@ -1,11 +1,11 @@
 {
   "name": "my-antd",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "antd utils",
   "main": "./dist/index.jsx",
   "scripts": {
     "start": "tsc -w",
-    "build": "clear && rm ./dist/** && tsc",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

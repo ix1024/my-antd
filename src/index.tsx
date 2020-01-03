@@ -1,6 +1,63 @@
 import * as utils from './utils';
 import { Form } from 'antd';
-import * as MyForm from '../MyAntd';
+import * as MyAntd from '../MyAntd';
 
-export default MyForm;
-export { MyForm, utils, Form };
+const {
+  Input,
+  InputGroup,
+  InputNumber,
+  InputNumberRange,
+  TextArea,
+  Radio,
+  Select,
+  DatePicker,
+  Reset,
+  Upload,
+  Switch,
+  Button,
+  FormItem,
+
+  MyEmpty,
+  MyCard,
+  MyModal,
+  MyInfo,
+  MyUpload,
+  MyTable,
+  MyPagination,
+  message,
+  MyBreadcrumb,
+  DisabledSwitch,
+  Delete,
+  NotDelete,
+} = MyAntd;
+
+export default MyAntd;
+
+export {
+  MyAntd, utils, Form, Input,
+  InputGroup,
+  InputNumber,
+  InputNumberRange,
+  TextArea,
+  Radio,
+  Select,
+  DatePicker,
+  Reset,
+  Upload,
+  Switch,
+  Button,
+  FormItem,
+
+  MyEmpty,
+  MyCard,
+  MyModal,
+  MyInfo,
+  MyUpload,
+  MyTable,
+  MyPagination,
+  message,
+  MyBreadcrumb,
+  DisabledSwitch,
+  Delete,
+  NotDelete,
+};
