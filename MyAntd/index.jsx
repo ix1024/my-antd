@@ -1,7 +1,6 @@
 import MyCard from './MyCard'
 import MyModal from './MyModal'
 import { MyTable } from './MyTable'
-import { MyInfo } from './MyInfo'
 import MyUpload from './MyUpload'
 import MyPagination from './MyPagination'
 import MyBreadcrumb from './MyBreadcrumb'
@@ -30,7 +29,6 @@ export {
     MyEmpty,
     MyCard,
     MyModal,
-    MyInfo,
     MyUpload,
     MyTable,
     MyPagination,
