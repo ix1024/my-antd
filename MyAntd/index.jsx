@@ -3,7 +3,6 @@ import MyModal from './MyModal'
 import { MyTable } from './MyTable'
 import MyUpload from './MyUpload'
 import MyPagination from './MyPagination'
-import MyBreadcrumb from './MyBreadcrumb'
 import { DisabledSwitch } from './DisabledSwitch'
 import { MyEmpty } from './MyEmpty'
 import Delete from './Delete'
@@ -33,7 +32,6 @@ export {
     MyTable,
     MyPagination,
     message,
-    MyBreadcrumb,
     DisabledSwitch,
     Delete,
     NotDelete,
