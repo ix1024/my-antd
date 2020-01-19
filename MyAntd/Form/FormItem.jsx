@@ -4,17 +4,13 @@ import styles from './FormItem.less'
 
 class FormItem extends PureComponent {
   render() {
-    const { children, className, form, label, formItemLayout, hasFeedback, style, showLabel, append } = this.props
-    if (!form) {
-      return <>控件缺少form属性</>
-    }
+    const { children, className, label, formItemLayout, style, showLabel = true, append } = this.props
 
     return (
       <Form.Item
         className={`${className} ${styles.item}`}
-        label={showLabel ? label : ''}
+        label={showLabel && label ? label : ' '}
         {...formItemLayout}
-        hasFeedback={hasFeedback}
         style={style}
       >
         {children}
