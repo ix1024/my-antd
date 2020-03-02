@@ -27,6 +27,7 @@ const {
   DisabledSwitch,
   Delete,
   NotDelete,
+  Block,
 } = MyAntd;
 
 export default MyAntd;
@@ -56,4 +57,5 @@ export {
   DisabledSwitch,
   Delete,
   NotDelete,
+  Block,
 };
