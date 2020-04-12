@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import { Form, Input } from 'antd'
 import PropTypes from 'prop-types'
-import styles from './TextArea.less'
+// import styles from './TextArea.less';
 
 const hLevel = { a: 50, b: 100, c: 150, d: 200, e: 250, f: 300 }
 const { TextArea } = Input
 export default class App extends Component {
-    state = { number: 0 }
-
     static propTypes = {
         form: PropTypes.object.isRequired,
         name: PropTypes.string.isRequired,
@@ -20,7 +18,6 @@ export default class App extends Component {
         className: PropTypes.string,
         maxLength: PropTypes.number,
         transform: PropTypes.func,
-        onChange: PropTypes.func,
         defaultValue: PropTypes.any,
         showLabel: PropTypes.bool,
         hasFeedback: PropTypes.bool,
@@ -43,7 +40,6 @@ export default class App extends Component {
         formItemLayout: null,
         defaultValue: undefined,
         pattern: null,
-        onChange: () => {},
         transform: item => {
             return item && item.trim ? item.trim() : item
         },
@@ -62,18 +58,7 @@ export default class App extends Component {
         if (undefined !== defaultValue && name) {
             obj[name] = defaultValue
             form.setFieldsValue(obj)
-            this.setState({ number: defaultValue && defaultValue.length ? defaultValue.length : 0 })
         }
-    }
-
-    componentWillReceiveProps(ev) {
-        const { name } = ev
-        clearTimeout(this.timer)
-        this.timer = setTimeout(() => {
-            try {
-                this.setState({ number: ev.form.getFieldsValue()[name].length })
-            } catch (error) {}
-        }, 100)
     }
 
     render() {
@@ -98,11 +83,8 @@ export default class App extends Component {
             isPlaceLabel,
             heightLevel,
             showNumber,
-            onChange,
-            disabled,
             ...resProps
         } = this.props
-        const { number } = this.state
         const params = {}
         const heightStyle = {}
         if (!form) {
@@ -121,44 +103,19 @@ export default class App extends Component {
         if (!style && heightLevel) {
             heightStyle.height = hLevel[heightLevel]
         }
-        const mySuffix = disabled ? null : (
-            <>
-                <span className={styles.numberBox}>
-                    {number}/{maxLength}
-                </span>
-            </>
-        )
         return (
-            <>
-                <Form.Item
-                    label={showLabel ? label : ''}
-                    {...formItemLayout}
-                    hasFeedback={hasFeedback}
-                    className={[className, styles.textArea].join(' ')}
-                >
-                    {form.getFieldDecorator(name, {
-                        initialValue: defaultValue,
-                        rules: rules.length ? rules : [{ transform, required, pattern, message: message || msg }],
-                    })(
-                        <TextArea
-                            placeholder={msg}
-                            style={style || heightStyle}
-                            disabled={disabled}
-                            onChange={ev => {
-                                onChange(ev)
-                                try {
-                                    this.setState({ number: ev.currentTarget.value.length })
-                                } catch (error) {
-                                    //
-                                }
-                            }}
-                            {...params}
-                            {...resProps}
-                        />,
-                    )}
-                    {suffix || mySuffix}
-                </Form.Item>
-            </>
+            <Form.Item
+                label={showLabel ? label : ''}
+                {...formItemLayout}
+                hasFeedback={hasFeedback}
+                className={className}
+            >
+                {form.getFieldDecorator(name, {
+                    initialValue: defaultValue,
+                    rules: rules.length ? rules : [{ transform, required, pattern, message: message || msg }],
+                })(<TextArea placeholder={msg} style={style || heightStyle} {...params} {...resProps} />)}
+                {suffix}
+            </Form.Item>
         )
     }
 }

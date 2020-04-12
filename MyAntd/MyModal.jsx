@@ -17,109 +17,127 @@
  *   </MyModal>
  */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Modal } from 'antd';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { Modal } from 'antd'
 
 class MyModal extends Component {
-  static propTypes = {
-    visible: PropTypes.bool,
-    title: PropTypes.any,
-    width: PropTypes.number,
-    children: PropTypes.any,
-    okText: PropTypes.string,
-    cancelText: PropTypes.string,
-    onOk: PropTypes.func,
-    onCancel: PropTypes.func,
-  };
-
-  static defaultProps = {
-    visible: false,
-    title: '',
-    width: 500,
-    okText: '确定',
-    cancelText: '取消',
-    children: <></>,
-    onOk: () => Promise.resolve(),
-    onCancel: () => {},
-  };
-
-  constructor(props) {
-    super(props);
-    const { _this, name } = props;
-    if (!_this) {
-      // eslint-disable-next-line no-console
-      console.error('缺少父级APP，请通过 _this传入');
+    static propTypes = {
+        visible: PropTypes.bool,
+        title: PropTypes.any,
+        width: PropTypes.number,
+        children: PropTypes.any,
+        okText: PropTypes.string,
+        cancelText: PropTypes.string,
+        onOk: PropTypes.func,
+        onCancel: PropTypes.func,
     }
-    if (!name) {
-      // eslint-disable-next-line no-console
-      console.error('缺少Model的name，请通过name传入，name即为Model显示隐藏的变量名');
+
+    static defaultProps = {
+        visible: false,
+        title: '',
+        width: 500,
+        okText: '确定',
+        cancelText: '取消',
+        children: <></>,
+        onOk: () => Promise.resolve(),
+        onCancel: () => {},
     }
-    this.state = {
-      // visible: props.visible, // 显示隐藏只能通过外部控制
-      confirmLoading: false,
-    };
-  }
 
-  // 点击确定按钮
-  handleOk = () => {
-    const { onOk, _this, name } = this.props;
-    const obj = {};
-    obj[name] = false;
+    constructor(props) {
+        super(props)
+        const { _this, name, setVisible } = props
 
-    this.setState({
-      confirmLoading: true,
-    });
-    onOk()
-      .then(() => {
-        _this.setState(obj);
+        if (setVisible) {
+        } else {
+            if (!_this) {
+                // eslint-disable-next-line no-console
+                console.error('缺少父级APP，请通过 _this传入')
+            }
+        }
+
+        if (!name) {
+            // eslint-disable-next-line no-console
+            console.error('缺少Model的name，请通过name传入，name即为Model显示隐藏的变量名')
+        }
+        this.state = {
+            // visible: props.visible, // 显示隐藏只能通过外部控制
+            confirmLoading: false,
+        }
+    }
+
+    // 点击确定按钮
+    handleOk = () => {
+        const { onOk, _this, name, setVisible } = this.props
+        const obj = {}
+        obj[name] = false
+
         this.setState({
-          // visible: false,
-          confirmLoading: false,
-        });
-      })
-      .catch(() => {
-        // _this.setState(obj);
+            confirmLoading: true,
+        })
+        onOk()
+            .then(() => {
+                try {
+                    _this.setState(obj)
+                } catch (error) {}
+                if (setVisible) {
+                    setVisible(false)
+                }
+
+                this.setState({
+                    // visible: false,
+                    confirmLoading: false,
+                })
+            })
+            .catch(() => {
+                // _this.setState(obj);
+                this.setState({
+                    confirmLoading: false,
+                })
+            })
+    }
+
+    // 取消
+    handleCancel = () => {
+        const { onCancel, _this, name, setVisible } = this.props
+        const obj = {}
+        obj[name] = false
+        try {
+            _this.setState(obj)
+        } catch (error) {}
+        if (setVisible) {
+            setVisible(false)
+        }
+
         this.setState({
-          confirmLoading: false,
-        });
-      });
-  };
+            // visible: false,
+            confirmLoading: false,
+        })
+        onCancel()
+    }
 
-  // 取消
-  handleCancel = () => {
-    const { onCancel, _this, name } = this.props;
-    const obj = {};
-    obj[name] = false;
-    _this.setState(obj);
-    this.setState({
-      // visible: false,
-      confirmLoading: false,
-    });
-    onCancel();
-  };
-
-  render() {
-    const {
-      confirmLoading,
-      // visible
-    } = this.state;
-    const { title, width, children, okText, cancelText } = this.props;
-    return (
-      <Modal
-        visible={this.props.visible}
-        width={width}
-        title={title}
-        okText={okText}
-        cancelText={cancelText}
-        onOk={this.handleOk}
-        onCancel={this.handleCancel}
-        confirmLoading={confirmLoading}
-      >
-        {children}
-      </Modal>
-    );
-  }
+    render() {
+        const {
+            confirmLoading,
+            // visible
+        } = this.state
+        const { title, width, children, okText, cancelText,maskClosable=true } = this.props
+        return (
+            <Modal
+                visible={this.props.visible}
+                width={width}
+                title={title}
+                okText={okText}
+                cancelText={cancelText}
+                onOk={this.handleOk}
+                onCancel={this.handleCancel}
+                confirmLoading={confirmLoading}
+                maskClosable={maskClosable}
+            >
+                {children}
+            </Modal>
+        )
+    }
 }
 
-export default MyModal;
+export default MyModal

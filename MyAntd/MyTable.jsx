@@ -1,8 +1,8 @@
-import React, { memo } from 'react';
-import { Table, Spin } from 'antd';
-import lodash from 'lodash';
-import { paginationInitData } from './MyPagination';
-import styles from './MyTable.less';
+import React, { memo } from 'react'
+import { Table, Spin } from 'antd'
+import lodash from 'lodash'
+import { paginationInitData } from './MyPagination'
+import styles from './MyTable.less'
 
 /**
  * @name 表格封装，统一交互效果，统一默认值
@@ -13,33 +13,33 @@ import styles from './MyTable.less';
  */
 
 export const MyTable = memo(props => {
-  let initProps = lodash.merge(
-    {
-      pagination: {
-        ...paginationInitData,
-      },
-    },
-    props,
-  );
-  if (initProps.pagination.loading === true) {
-    initProps.pagination.disabled = true;
-  } else if (initProps.pagination.loading === false) {
-    initProps.pagination.disabled = false;
-  }
-  initProps = lodash.cloneDeep(initProps);
-  const { loading } = initProps.pagination;
-  return (
-    <div className={styles.myTable}>
-      <Table {...initProps} />
-      {loading ? (
-        <div className={styles.loadingBox}>
-          <Spin spinning={loading} />
+    let initProps = lodash.merge(
+        {
+            pagination: {
+                ...paginationInitData,
+            },
+        },
+        props,
+    )
+    if (initProps.pagination.loading === true) {
+        initProps.pagination.disabled = true
+    } else if (initProps.pagination.loading === false) {
+        initProps.pagination.disabled = false
+    }
+    initProps = lodash.cloneDeep(initProps)
+    const { loading } = initProps.pagination
+    return (
+        <div className={styles.__myTable}>
+            <Table {...initProps} />
+            {loading ? (
+                <div className={styles.__loadingBox}>
+                    <Spin spinning={loading} />
+                </div>
+            ) : (
+                <></>
+            )}
         </div>
-      ) : (
-        <></>
-      )}
-    </div>
-  );
-});
+    )
+})
 
-export default MyTable;
+export default MyTable
